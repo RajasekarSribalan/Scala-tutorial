@@ -242,6 +242,113 @@ scala> order
 res8: Order = Order (5,2014-10-10,COMPLETED)
 
 
+*******Object
+
+Objects are special types of classes.
+
+It is singleton class
+main function is defined in object
+If the class name and object name are same then they are called as companions
+We cannot instantiate object
+
+
+******* there is no static method in scala *******
+
+In Scala class, if you write a main method ,after compile,scala class will be converted to java class which in turns converts static main method to normal main method.
+
+---------
+Sample object,
+
+scala> object HellowWorld {
+     |  def main(args: Array[String]):Unit = {
+     |   println("Hello world")
+     | }
+     | }
+defined object HellowWorld
+
+scala> HelloWorld.main(Array(""))
+<console>:8: error: not found: value HelloWorld
+              HelloWorld.main(Array(""))
+              ^
+
+scala> HellowWorld.main(Array(""))
+Hello world
+----------
+
+
+Companions
+
+This mean both class and object have same name in single program.Let us see an example.
+
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
+
+
+class Order(var orderId: Int,var orderDate: String,var orderCustomerId: Int,var orderStatus: String){
+println("I am inside order constructor")
+override def toString = "Order ("+orderId+","+orderDate+","+orderStatus+")"
+}
+
+object Order {
+ def apply(orderId:Int,orderDate:String,orderCustomerId:Int,orderStatus:String): Order = {
+  new Order(orderId,orderDate,orderCustomerId,orderStatus)
+ }
+}
+
+
+// Exiting paste mode, now interpreting.
+
+defined class Order
+defined object Order
+
+scala> val order = Order.apply(1,"2014-01-01",123,"Completed")
+I am inside order constructor
+order: Order = Order (1,2014-01-01,Completed)
+
+*** Note : Although we have a class and an object in same program,scala will create two different classes.
+1.Order - represents class
+2.Order$ - represents object
+
+scala> :javap -p Order
+Compiled from "<console>"
+public class Order {
+  private int orderId;
+  private java.lang.String orderDate;
+  private int orderCustomerId;
+  private java.lang.String orderStatus;
+  public int orderId();
+  public void orderId_$eq(int);
+  public java.lang.String orderDate();
+  public void orderDate_$eq(java.lang.String);
+  public int orderCustomerId();
+  public void orderCustomerId_$eq(int);
+  public java.lang.String orderStatus();
+  public void orderStatus_$eq(java.lang.String);
+  public java.lang.String toString();
+  public Order(int, java.lang.String, int, java.lang.String);
+}
+
+scala> :javap -p Order$
+Compiled from "<console>"
+public class Order$ {
+  public static final Order$ MODULE$;
+  public static {};
+  public Order apply(int, java.lang.String, int, java.lang.String);
+  public Order$();
+}
+
+
+**** apply method name is optional while creating object
+
+val order = Order.apply(1,"2014-01-01",123,"Completed")
+
+or
+
+val order = Order(1,"2014-01-01",123,"Completed")
+
+we can have many apply methods with diff args
+
+
 
 
 
