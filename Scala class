@@ -1,0 +1,247 @@
+******* Scala Class  **********
+
+By default all the arguments passed to class are constructor arguments
+All the free flowing code with the class body is constructor behavior.
+In case if you want to create class level variables, you need to use val or var
+Class methods can be defined with in the class body
+
+
+scala> class Order(orderId: Int,orderDate: String,orderCustomerId: Int,orderStatus: String){
+     | println("I am inside order constructor")
+     | }
+defined class Order
+
+If we define the arguments in class itself,this mean we are creating a defaulty constructor with those arguments.
+
+We can visualize this class as a java class by running below command
+
+scala> :javap -p Order
+Compiled from "<console>"
+public class Order {
+  public Order(int, java.lang.String, int, java.lang.String);
+}
+
+## TO initalize a class or to create an object of the class Order, then,
+
+scala> val order = new Order()
+<console>:8: error: not enough arguments for constructor Order: (orderId: Int, orderDate: String, orderCustomerId: Int, orderStatus: String)Order.
+Unspecified value parameters orderId, orderDate, orderCustomerId, ...
+       val order = new Order()
+ 
+The above command as thrown error because we dont have default constructor with no args.BUt below will work
+
+scala> val order = new Order(1,"2014-10-10",100,"COMPLETED")
+I am inside order constructor
+order: Order = Order@2e185cd7
+
+Suppose we want to create functions,
+ then,                                                               ^
+
+scala> class Order(orderId: Int,orderDate: String,orderCustomerId: Int,orderStatus: String){
+     | println("I am inside order constructor")
+     | override def toString = "Order ("+orderId+","+orderDate+","+orderStatus+")"
+     | }
+defined class Order
+
+scala> val order = new Order(1,"2014-10-10",100,"COMPLETED")
+I am inside order constructor
+order: Order = Order (1,2014-10-10,COMPLETED)
+
+scala> :javap -p Order
+Compiled from "<console>"
+public class Order {
+  private final int orderId;
+  private final java.lang.String orderDate;
+  private final java.lang.String orderStatus;
+  public java.lang.String toString();
+  public Order(int, java.lang.String, int, java.lang.String);
+}
+
+#### suppose we want to access a variable say orderId,it is not possible because we dont not have getter and setter.To do that, we need to specify val for the constructor args during class creation.
+
+scala> order.orderId
+<console>:10: error: value orderId is not a member of Order
+              order.orderId
+                    
+
+Now let us add val to the args
+
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
+
+class Order(val orderId: Int,val orderDate: String,val orderCustomerId: Int,val orderStatus: String){
+println("I am inside order constructor")
+override def toString = "Order ("+orderId+","+orderDate+","+orderStatus+")"
+}
+
+// Exiting paste mode, now interpreting.
+
+defined class Order
+
+
+
+scala> :javap -p Order
+Compiled from "<console>"
+public class Order {
+  private final int orderId;
+  private final java.lang.String orderDate;
+  private final int orderCustomerId;
+  private final java.lang.String orderStatus;
+  public int orderId();
+  public java.lang.String orderDate();
+  public int orderCustomerId();
+  public java.lang.String orderStatus();
+  public java.lang.String toString();
+  public Order(int, java.lang.String, int, java.lang.String);
+}
+
+scala> order.orderId()
+<console>:10: error: value orderId is not a member of Order
+              order.orderId()
+
+Above commad did not work, bcoz scala doesnot accept () to invoke a method.Please refer below for more info
+
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
+
+class Order(val orderId: Int,val orderDate: String,val orderCustomerId: Int,val orderStatus: String){
+println("I am inside order constructor")
+override def toString = "Order ("+orderId+","+orderDate+","+orderStatus+")"
+}
+
+
+// Exiting paste mode, now interpreting.
+
+defined class Order
+
+scala> val order = new Order(1,"2014-10-10",100,"COMPLETED")
+I am inside order constructor
+order: Order = Order (1,2014-10-10,COMPLETED)
+
+scala> order.orderId
+res0: Int = 1
+
+scala> order.orderDate
+res1: String = 2014-10-10
+
+scala> order.orderDate()
+<console>:10: error: not enough arguments for method apply: (index: Int)Char in class StringOps.
+Unspecified value parameter index.
+              order.orderDate()
+                             ^
+
+Now if we want to change the value of orderID, we cant do that becoz we have used val.We need to change it to var,Which will internally create setters
+
+Val will only create getter
+var will create both setter and getter
+
+scala> order.orderId = 2;
+<console>:9: error: reassignment to val
+       order.orderId = 2;
+                     ^
+
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
+
+class Order(var orderId: Int,var orderDate: String,var orderCustomerId: Int,var orderStatus: String){
+println("I am inside order constructor")
+override def toString = "Order ("+orderId+","+orderDate+","+orderStatus+")"
+}
+
+// Exiting paste mode, now interpreting.
+
+defined class Order
+
+scala> val order = new Order(1,"2014-10-10",100,"COMPLETED")
+I am inside order constructor
+order: Order = Order (1,2014-10-10,COMPLETED)
+
+scala> :javap -i order
+usage       :javap [opts] [path or class or -]...
+-help       Prints this help message
+-raw        Don't unmangle REPL names
+-app        Show the DelayedInit body of Apps
+-fun        Show anonfuns for class or Class#method
+-verbose/-v Stack size, number of locals, method args
+-private/-p Private classes and members
+-package    Package-private classes and members
+-protected  Protected classes and members
+-public     Public classes and members
+-l          Line and local variable tables
+-c          Disassembled code
+-s          Internal type signatures
+-sysinfo    System info of class
+-constants  Static final constants
+
+scala> :javap -p order
+Compiled from "<console>"
+public class  {
+  public static final  MODULE$;
+  private final Order order;
+  public static {};
+  public Order order();
+  public ();
+}
+
+scala> :javap -p Order
+Compiled from "<console>"
+public class Order {
+  private int orderId;
+  private java.lang.String orderDate;
+  private int orderCustomerId;
+  private java.lang.String orderStatus;
+  public int orderId();
+  public void orderId_$eq(int);
+  public java.lang.String orderDate();
+  public void orderDate_$eq(java.lang.String);
+  public int orderCustomerId();
+  public void orderCustomerId_$eq(int);
+  public java.lang.String orderStatus();
+  public void orderStatus_$eq(java.lang.String);
+  public java.lang.String toString();
+  public Order(int, java.lang.String, int, java.lang.String);
+}
+
+scala> order.OrderId
+<console>:10: error: value OrderId is not a member of Order
+              order.OrderId
+                    ^
+
+scala> oerder.orderId
+<console>:8: error: not found: value oerder
+              oerder.orderId
+              ^
+
+scala> order.orderId
+res2: Int = 1
+
+scala> order.orderId = 2
+order.orderId: Int = 2
+
+scala> order
+res3: Order = Order (2,2014-10-10,COMPLETED)
+
+scala> order.toString
+res4: String = Order (2,2014-10-10,COMPLETED)
+
+scala> order.orderId_=(3)
+
+scala> order
+res6: Order = Order (3,2014-10-10,COMPLETED)
+
+scala> order.orderId=(4)
+order.orderId: Int = 4
+
+scala> order
+res7: Order = Order (4,2014-10-10,COMPLETED)
+
+scala> order.orderId=5
+order.orderId: Int = 5
+
+scala> order
+res8: Order = Order (5,2014-10-10,COMPLETED)
+
+
+
+
+
