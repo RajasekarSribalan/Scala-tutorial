@@ -459,7 +459,7 @@ function
 
 syntax
 
-def functioname(fucation param): returnType = {
+def functioname(function param): returnType = {
     code....
 }
 
@@ -476,6 +476,8 @@ scala> def areaRect(l:Float,b:Float):Unit = {
      | println(l)
      | }
 areaRect: (l: Float, b: Float)Unit
+
+*** Return type in the function not mandatory.Because the scala will either return the data or unit based on your pogram.It is intelligent enough to identify whether you function return or not
 
 scala> areaRect(2.3f,6.7f)
 2.3
@@ -531,6 +533,112 @@ Unspecified value parameter b.
 
 scala> areaRect(b = 2)
 res32: Int = 24
+
+
+********Function passing function
+
+Defining return type is optional
+
+---------------------
+
+
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
+
+def sum(func: Int => Int,lb :Int,ub:Int) = {
+var total = 0;
+for(element <- lb to ub){
+ total = total + func(element)
+}
+total
+}
+
+// Exiting paste mode, now interpreting.
+
+sum: (func: Int => Int, lb: Int, ub: Int)Int
+
+scala> def id(i:Int) = i
+id: (i: Int)Int
+
+scala> def sqr(i:Int) = i*i
+sqr: (i: Int)Int
+
+scala> def cube(i:Int) = i*i*i
+cube: (i: Int)Int
+
+scala> def multOf100(i:Int) = i*100
+multOf100: (i: Int)Int
+
+scala> sum(id,1,10)
+res0: Int = 55
+
+scala> sum(sqr,1,10)
+res1: Int = 385
+
+scala> sum(cube,1,10)
+res2: Int = 3025
+
+scala> sum(multof100,1,10)
+<console>:9: error: not found: value multof100
+              sum(multof100,1,10)
+                  ^
+
+scala> sum(multOf100,1,10)
+res4: Int = 5500
+
+
+****** Anonymous functions **********
+
+Anonymous functions
+   can be assigned to variables
+   can be passed as arguments to other functions
+
+Anonymous function doesnt have any name.
+We can pass as arguments to the othe function
+
+e.g.,
+
+--------------
+i is the argument name = > is is the return type
+scala> sum(i => i,1,10)
+res5: Int = 55
+
+scala> sum(i => i*i,1,10)
+res6: Int = 385
+
+scala> sum(i => i*i*i,1,10)
+res7: Int = 3025
+
+scala> sum(i => i*100,1,10)
+res8: Int = 5500
+
+scala> sum (i => {
+     | if(i % 2 ==0) {
+     | i*i
+     | } else {
+     | i * i * i
+     | }
+     | } , 1,10)
+
+Data type is very important
+
+scala> sum (i => {
+     | if(i % 2 ==0) {
+     | i*i
+     | } else {
+     | "Raj"
+     | }
+     | } , 1,10)
+<console>:13: error: type mismatch;
+ found   : String("Raj")
+ required: Int
+              "Raj"
+              ^
+
+
+
+-----------------
+-------------------
 
 Collections
 
