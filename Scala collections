@@ -1,0 +1,368 @@
+-----------------
+-------------------
+
+Collections
+
+Collections
+Collections are broadly categorized into
+
+List – Collection of elements
+Set – Collection of unique elements
+Map – Collection of key value pairs
+Based on the category of the collection, we will see different methods. For example
+
+List have methods to retrieve elements using index
+Set have methods related to set operations, such as union
+Map have methods related to keys and values, accessing values by passing keys and more.
+
+
+Travesarble and Iterable
+
+--------------------
+
+scala> Array
+res2: Array.type = scala.Array$@cb644e
+
+scala> Set
+res3: scala.collection.immutable.Set.type = scala.collection.immutable.Set$@1649b0e6
+
+scala> List
+res4: scala.collection.immutable.List.type = scala.collection.immutable.List$@103f852
+
+scala> Map
+res5: scala.collection.immutable.Map.type = scala.collection.immutable.Map$@491b9b8
+
+scala> Seq
+res6: scala.collection.Seq.type = scala.collection.Seq$@42a15bdc
+
+
+---------------------
+
+
+---------------------
+
+scala> val array = Array(1,3,4,5)
+array: Array[Int] = Array(1, 3, 4, 5)
+
+scala> val list = List(1,1,2,3,4,5,5,6)
+list: List[Int] = List(1, 1, 2, 3, 4, 5, 5, 6)
+
+scala> val set = Set(1,1,2,3,4,5,5,6)
+set: scala.collection.immutable.Set[Int] = Set(5, 1, 6, 2, 3, 4)
+
+scala> val seq = Seq(1,1,2,3,4,5,5,6)
+seq: Seq[Int] = List(1, 1, 2, 3, 4, 5, 5, 6)
+
+scala> val seq = Seq(10,11,2,3,4,5,5,6)
+seq: Seq[Int] = List(10, 11, 2, 3, 4, 5, 5, 6)
+
+scala> val map = Map("Hello" -> 1,"Raj" -> 2)
+map: scala.collection.immutable.Map[String,Int] = Map(Hello -> 1, Raj -> 2)
+
+
+
+---------------------
+
+**** Forach eacch collection ****
+scala> array.foreach(print)
+1345
+scala> list.foreach(print)
+11234556
+scala> set.foreach(print)
+516234
+scala> seq.foreach(print)
+1011234556
+scala> map.foreach(print)
+(Hello,1)(Raj,2)
+
+****************************
+
+******** Accessing each element *******
+
+scala> array(0)
+res12: Int = 1
+
+scala> list(0)
+res13: Int = 1
+
+scala> set(0)
+res14: Boolean = false
+
+scala> set(1)
+res15: Boolean = true
+
+scala> map("Hello")
+res16: Int = 1
+
+scala> map(0)
+<console>:9: error: type mismatch;
+ found   : Int(0)
+ required: String
+              map(0)
+                  ^
+
+
+*********************************
+
+Array
+
+scala> val arr = new Array[Int](10)
+arr: Array[Int] = Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+scala> arr(0) = 1
+
+scala> arr(1) = 2
+
+scala> arr(10) = 3
+java.lang.ArrayIndexOutOfBoundsException: 10
+  ... 33 elided
+
+scala> arr(9) = 3
+
+scala> arr
+res41: Array[Int] = Array(1, 2, 0, 0, 0, 0, 0, 0, 0, 3)
+
+scala> arr.foreach(println)
+1
+2
+0
+0
+0
+0
+0
+0
+0
+3
+
+scala> val arr = new Array[String](10)
+arr: Array[String] = Array(null, null, null, null, null, null, null, null, null, null)
+
+scala> arr(0)
+res43: String = null
+
+scala> arr(0) = "Raj"
+
+scala> arr(2) = "sekar"
+
+scala> arr.foreach(println)
+Raj
+null
+sekar
+null
+null
+null
+null
+null
+null
+null
+
+scala> val arr = Array(1,2,3,4)
+arr: Array[Int] = Array(1, 2, 3, 4)
+
+scala> arr.foreach(println)
+1
+2
+3
+4
+
+//if an Object is declared as val,only the object reference becomes immutable and not the object value.hence you can change the value of the object.
+
+e.g.,
+
+scala> val arr = Array(1,2,3,4)
+arr: Array[Int] = Array(1, 2, 3, 4)
+
+scala> val arr1 = Array(1,2,3,4)
+arr1: Array[Int] = Array(1, 2, 3, 4)
+
+scala> arr = arr1
+<console>:9: error: reassignment to val
+       arr = arr1
+           ^
+
+scala> var arr = Array(1,2,3,4)
+arr: Array[Int] = Array(1, 2, 3, 4)
+
+scala> var arr1 = Array(1,2,3,4)
+arr1: Array[Int] = Array(1, 2, 3, 4)
+
+scala> arr = arr1
+arr: Array[Int] = [I@720cbb7d
+
+
+ArrayBuffer
+
+scala> val arr = new ArrayBuffer[Int]()
+<console>:7: error: not found: type ArrayBuffer
+       val arr = new ArrayBuffer[Int]()
+                     ^
+
+scala> import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.ArrayBuffer
+
+scala> val arr = new ArrayBuffer[Int]()
+arr: scala.collection.mutable.ArrayBuffer[Int] = ArrayBuffer()
+
+scala> arr + = 200
+<console>:12: error: missing arguments for method + in class any2stringadd;
+follow this method with `_' if you want to treat it as a partially applied function
+val $ires0 = arr.$plus
+                 ^
+<console>:9: error: reassignment to val
+       arr + = 200
+             ^
+
+scala> arr += 200
+res0: arr.type = ArrayBuffer(200)
+
+scala> arr += 300
+res1: arr.type = ArrayBuffer(200, 300)
+
+scala> arr += (100,400,600)
+res2: arr.type = ArrayBuffer(200, 300, 100, 400, 600)
+
+scala> arr.foreach(arr)
+java.lang.IndexOutOfBoundsException: 200
+  at scala.collection.mutable.ResizableArray$class.apply(ResizableArray.scala:43)
+  at scala.collection.mutable.ArrayBuffer.apply(ArrayBuffer.scala:48)
+  at scala.collection.mutable.ArrayBuffer.apply(ArrayBuffer.scala:48)
+  at scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)
+  at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)
+  ... 33 elided
+
+scala> arr.foreach(println)
+200
+300
+100
+400
+600
+
+scala> arr += Array(1000,4000,6000)
+<console>:10: error: type mismatch;
+ found   : Array[Int]
+ required: Int
+              arr += Array(1000,4000,6000)
+                          ^
+
+scala> arr ++= Array(1000,4000,6000)
+res6: arr.type = ArrayBuffer(200, 300, 100, 400, 600, 1000, 4000, 6000)
+
+scala> arr --= Array(1000,4000,6000)
+res7: arr.type = ArrayBuffer(200, 300, 100, 400, 600)
+
+scala> for(n <- arr) println(n)
+200
+300
+100
+400
+600
+
+scala> arr.foreach(println)
+200
+300
+100
+400
+600
+
+scala> for(n <- arr if n % 2 != 0) println(n)
+
+scala> for(n <- arr if n % 2 = 0) println(n)
+<console>:1: error: ')' expected but '=' found.
+       for(n <- arr if n % 2 = 0) println(n)
+                             ^
+
+scala> for(n <- arr if n % 2 == 0) println(n)
+200
+300
+100
+400
+600
+
+scala> for(n <- arr if n % 2 == 0) yield(n)
+res12: scala.collection.mutable.ArrayBuffer[Int] = ArrayBuffer(200, 300, 100, 400, 600)
+
+scala> arr.filter(_ % 2 != 0).foreach(println)
+
+scala> arr.filter(_ % 2 == 0).foreach(println)
+200
+300
+100
+400
+600
+
+scala> arr.max
+res15: Int = 600
+
+scala> arr.min
+res16: Int = 100
+
+scala> arr.max
+res17: Int = 600
+
+Maps
+
+The below is the immutable map.Once created you cannot delete the key.
+
+scala> val m = Map(1 -> "Binny", 2 -> "Stuart")
+m: scala.collection.immutable.Map[Int,String] = Map(1 -> Binny, 2 -> Stuart)
+
+scala> m -= 1
+<console>:10: error: value -= is not a member of scala.collection.immutable.Map[Int,String]
+              m -= 1
+                ^
+
+So,You need to create a mutable map
+
+scala> import scala.collection.mutable.Map
+import scala.collection.mutable.Map
+
+scala> val m = Map(1 -> "Binny", 2 -> "Stuart")
+m: scala.collection.mutable.Map[Int,String] = Map(2 -> Stuart, 1 -> Binny)
+
+scala> m -= 1
+res19: m.type = Map(2 -> Stuart)
+
+scala> import scala.collection.mutable.Map
+import scala.collection.mutable.Map
+
+scala> val m = Map(1 -> "Binny", 2 -> "Stuart")
+m: scala.collection.mutable.Map[Int,String] = Map(2 -> Stuart, 1 -> Binny)
+
+scala> m -= 1
+res19: m.type = Map(2 -> Stuart)
+
+scala> m
+res20: scala.collection.mutable.Map[Int,String] = Map(2 -> Stuart)
+
+scala> m(1)
+java.util.NoSuchElementException: key not found: 1
+  at scala.collection.MapLike$class.default(MapLike.scala:228)
+  at scala.collection.AbstractMap.default(Map.scala:59)
+  at scala.collection.mutable.HashMap.apply(HashMap.scala:65)
+  ... 33 elided
+
+scala> m(2)
+res22: String = Stuart
+
+scala> m.get(1)
+res23: Option[String] = None
+
+scala> m.get(2)
+res24: Option[String] = Some(Stuart)
+
+scala>  m.getOrElse(1, "Raj")
+res25: String = Raj
+
+scala>  m
+res26: scala.collection.mutable.Map[Int,String] = Map(2 -> Stuart)
+
+scala>  m.getOrElse(10, 100)
+res27: Any = 100
+
+scala> m += (1 -> "Sekar")
+res28: m.type = Map(2 -> Stuart, 1 -> Sekar)
+
+scala> m
+res29: scala.collection.mutable.Map[Int,String] = Map(2 -> Stuart, 1 -> Sekar)
+
+mutable vs immutable collections
