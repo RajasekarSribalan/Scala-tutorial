@@ -349,6 +349,225 @@ val order = Order(1,"2014-01-01",123,"Completed")
 we can have many apply methods with diff args
 
 
+********
+
+Case Class
+Case class is special type of class, where we get boiler plate code
+
+It contains companion object with apply method
+Default constructor will be provided for case class
+It implements Product and Serializable, which gives us functionality for methods such as productArity, productElement etc
+By default, arguments passed to case class will be immutable variables (val). We will get getter methods for all the variables
+If we define arguments as mutable variables (var), we will get functionality for both getter and setter methods.
+There are few other methods for which boiler plate code is generated
+toString
+equals
+hashCode
+canEqual
+apply
+and more
+
+
+
+case class Order(orderId: Int,orderDate: String,orderCustomerId: Int,orderStatus: String){
+ println("I am inside order constructor")
+}
+
+
+scala> case class Order(orderId: Int,orderDate: String,orderCustomerId: Int,orderStatus: String){
+     |  println("I am inside order constructor")
+     | }
+defined class Order
+
+scala> :javap -p Order
+Compiled from "<console>"
+public class Order implements scala.Product,scala.Serializable {
+  private final int orderId;
+  private final java.lang.String orderDate;
+  private final int orderCustomerId;
+  private final java.lang.String orderStatus;
+  public int orderId();
+  public java.lang.String orderDate();
+  public int orderCustomerId();
+  public java.lang.String orderStatus();
+  public Order copy(int, java.lang.String, int, java.lang.String);
+  public int copy$default$1();
+  public java.lang.String copy$default$2();
+  public int copy$default$3();
+  public java.lang.String copy$default$4();
+  public java.lang.String productPrefix();
+  public int productArity();
+  public java.lang.Object productElement(int);
+  public scala.collection.Iterator<java.lang.Object> productIterator();
+  public boolean canEqual(java.lang.Object);
+  public int hashCode();
+  public java.lang.String toString();
+  public boolean equals(java.lang.Object);
+  public Order(int, java.lang.String, int, java.lang.String);
+}
+
+Even Order$ will be seen as below
+
+scala> :javap -p Order$
+Compiled from "<console>"
+public class Order$ extends scala.runtime.AbstractFunction4<java.lang.Object, java.lang.String, java.lang.Object, java.lang.String, Order> implements scala.Serializable {
+  public static final Order$ MODULE$;
+  public static {};
+  public final java.lang.String toString();
+  public Order apply(int, java.lang.String, int, java.lang.String);
+  public scala.Option<scala.Tuple4<java.lang.Object, java.lang.String, java.lang.Object, java.lang.String>> unapply(Order);
+  private java.lang.Object readResolve();
+  public java.lang.Object apply(java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object);
+  public Order$();
+}
+
+
+Now let us create var type args for case class
+
+case class Order(var orderId: Int,var orderDate: String,var orderCustomerId: Int,var orderStatus: String){
+ println("I am inside order constructor")
+}
+
+
+scala> case class Order(var orderId: Int,var orderDate: String,var orderCustomerId: Int,var orderStatus: String){
+     |  println("I am inside order constructor")
+     | }
+defined class Order
+
+scala> :javap -p Order
+Compiled from "<console>"
+public class Order implements scala.Product,scala.Serializable {
+  private int orderId;
+  private java.lang.String orderDate;
+  private int orderCustomerId;
+  private java.lang.String orderStatus;
+  public int orderId();
+  public void orderId_$eq(int);
+  public java.lang.String orderDate();
+  public void orderDate_$eq(java.lang.String);
+  public int orderCustomerId();
+  public void orderCustomerId_$eq(int);
+  public java.lang.String orderStatus();
+  public void orderStatus_$eq(java.lang.String);
+  public Order copy(int, java.lang.String, int, java.lang.String);
+  public int copy$default$1();
+  public java.lang.String copy$default$2();
+  public int copy$default$3();
+  public java.lang.String copy$default$4();
+  public java.lang.String productPrefix();
+  public int productArity();
+  public java.lang.Object productElement(int);
+  public scala.collection.Iterator<java.lang.Object> productIterator();
+  public boolean canEqual(java.lang.Object);
+  public int hashCode();
+  public java.lang.String toString();
+  public boolean equals(java.lang.Object);
+  public Order(int, java.lang.String, int, java.lang.String);
+}
+
+scala> :javap -p Order$
+Compiled from "<console>"
+public class Order$ extends scala.runtime.AbstractFunction4<java.lang.Object, java.lang.String, java.lang.Object, java.lang.String, Order> implements scala.Serializable {
+  public static final Order$ MODULE$;
+  public static {};
+  public final java.lang.String toString();
+  public Order apply(int, java.lang.String, int, java.lang.String);
+  public scala.Option<scala.Tuple4<java.lang.Object, java.lang.String, java.lang.Object, java.lang.String>> unapply(Order);
+  private java.lang.Object readResolve();
+  public java.lang.Object apply(java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object);
+  public Order$();
+}
+
+We will now can see getter and setter method for var args
+
+Now let us create an object
+
+scala> val order = new Order(1,"2014-10-10",100,"COMPLETED")
+I am inside order constructor
+order: Order = Order(1,2014-10-10,100,COMPLETED)
+
+scala> order.orderId
+res4: Int = 1
+
+scala> order.orderDate
+res5: String = 2014-10-10
+
+if you give order.<tab> you will get all supported methods
+scala> order.
+asInstanceOf   copy           orderCustomerId     orderDate     orderId     orderStatus     productArity     productIterator   toString   
+canEqual       isInstanceOf   orderCustomerId_=   orderDate_=   orderId_=   orderStatus_=   productElement   productPrefix                
+
+if you give order.productElement<tab> it will give the args of that method.
+
+scala> order.product
+productArity   productElement   productIterator   productPrefix
+
+scala> order.productArity
+   def productArity: Int
+
+scala> order.productArity
+   def productArity: Int
+
+scala> order.productArity
+   def productArity: Int
+
+scala> order.productArity
+   def productArity: Int
+
+scala> order.productArity
+res6: Int = 4
+
+scala> order.productElement
+   def productElement(Int): Any
+
+scala> order.productElement
+   def productElement(Int): Any
+
+scala> order.productElement(1)
+res7: Any = 2014-10-10
+
+scala> order.productElement(0)
+res8: Any = 1
+
+scala> order.productElement(2)
+
+
+scala> order.product
+productArity   productElement   productIterator   productPrefix
+
+scala> order.productIterator
+res10: Iterator[Any] = non-empty iterator
+
+scala> order.productIterator.for
+forall   foreach
+
+scala> order.productIterator.foreach(println(
+     | )
+     | ';
+<console>:3: error: unclosed character literal
+       ';
+       ^
+
+scala> order.productIterator.foreach(println)
+1
+2014-10-10
+100
+COMPLETED
+
+scala> order.product
+productArity   productElement   productIterator   productPrefix
+
+scala> order.productPrefix
+   def productPrefix: String
+
+scala> order.productPrefix
+   def productPrefix: String
+
+scala> order.productPrefix
+res12: String = Order
+
+
+
 
 
 
