@@ -1,0 +1,136 @@
+Pair - If we want to assign two values together
+
+--------------------
+
+
+scala> val(name,gender) = Pair("Raj","Gender")
+warning: there was one deprecation warning; re-run with -deprecation for details
+name: String = Raj
+gender: String = Gender
+
+scala> //Scala pair is deprecated
+
+scala> 
+
+scala> val(name,gender,sno) = Pair("Raj","Gender",1)
+<console>:9: error: too many arguments for method apply: (x: A, y: B)(A, B) in object Pair
+       val(name,gender,sno) = Pair("Raj","Gender",1)
+                                  ^
+
+scala> //It will take only two arguments
+
+
+--------------------
+
+Strings are immutable always.
+
+Once you are created,you cannot change
+
+In this case,we can use StringBuilder
+
+
+scala> val builder = StringBuilder.newBuilder
+builder: StringBuilder =
+
+scala> builder.append("Raj")
+res1: StringBuilder = Raj
+
+scala> builder.append(" ")
+res2: StringBuilder = Raj
+
+scala> builder.append("sekar ")
+res3: StringBuilder = Raj sekar
+
+scala>  builder
+res4: StringBuilder = Raj sekar
+
+------------------
+
+Anonymous function or Function pointers
+
+We can assign anoynmous function which will have no name,can be accessed by the variable name.
+ ------------------
+scala> var f1 = (x:Int) => x+1
+f1: Int => Int = <function1>
+
+scala> ft(10)
+<console>:8: error: not found: value ft
+              ft(10)
+              ^
+
+scala> f1(10)
+res6: Int = 11
+
+scala> var b = f1(11) + 12
+b: Int = 24
+-----
+
+--------
+
+scala> {i:Int => 
+     | println("hello Raj")
+     | i*2
+     | }
+res7: Int => Int = <function1>
+
+scala> res7(20)
+hello Raj
+res8: Int = 40
+
+--------
+
+Partial function
+
+scala> def addres(m:Int,n:Int) = m+n
+addres: (m: Int, n: Int)Int
+
+scala> val add2 = addres(2,_:Int)
+add2: Int => Int = <function1>
+
+scala> println(add2(2))
+4
+
+scala> println(add2(3))
+5
+
+
+Curried function
+
+scala> def add(x:Int) = (y:Int) => x+y
+add: (x: Int)Int => Int
+
+scala> add(2)(3)
+res2: Int = 5
+
+scala> val mulltiplier = (i:Int) => i*10
+mulltiplier: Int => Int = <function1>
+
+
+              ^
+
+scala> mulltiplier(3)
+res6: Int = 30
+
+scala> 
+
+scala> val mulltiplier = (x:Int) => i*x
+<console>:7: error: not found: value i
+       val mulltiplier = (x:Int) => i*x
+                                    ^
+
+scala> var i = 9
+i: Int = 9
+
+scala> val mulltiplier = (x:Int) => i*x
+mulltiplier: Int => Int = <function1>
+
+scala> mulltiplier(3)
+res7: Int = 27
+
+scala> i = 20
+
+
+
+
+
+
