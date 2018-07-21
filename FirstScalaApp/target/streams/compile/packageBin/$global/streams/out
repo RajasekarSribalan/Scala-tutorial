@@ -1,1 +1,13 @@
-[0m[[0m[0mdebug[0m] [0m[0mJar uptodate: /home/raj/Project/Scala projects/FirstScalaApp/target/scala-2.11/firstscalaapp_2.11-0.1.jar[0m
+[0m[[0m[0minfo[0m] [0m[0mPackaging /home/raj/Project/Scala projects/FirstScalaApp/target/scala-2.11/firstscalaapp_2.11-0.1.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	OrderRevenue$$anonfun$3.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/raj/Project/Scala projects/FirstScalaApp/target/scala-2.11/classes/OrderRevenue$$anonfun$3.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	OrderRevenue.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/raj/Project/Scala projects/FirstScalaApp/target/scala-2.11/classes/OrderRevenue.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	OrderRevenue$$anonfun$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/raj/Project/Scala projects/FirstScalaApp/target/scala-2.11/classes/OrderRevenue$$anonfun$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	OrderRevenue$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/raj/Project/Scala projects/FirstScalaApp/target/scala-2.11/classes/OrderRevenue$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	OrderRevenue$$anonfun$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/raj/Project/Scala projects/FirstScalaApp/target/scala-2.11/classes/OrderRevenue$$anonfun$1.class[0m
+[0m[[0m[0minfo[0m] [0m[0mDone packaging.[0m
