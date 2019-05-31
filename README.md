@@ -14,17 +14,17 @@
 
 ## Contents
 
- [Basic Programming]()
- [Scala collections]() 
- [Lazy loading]()
- [Tuples]()
-[Function passing function]()
-[Annonymous function]()
-[Curried function]()
-[Partial function]()
-[Scala class]()
-[Scala object]()
-[Scala companions]()
-[Companions]()
-[Scala map-reduce APIs]()
-[I/O operations]
+* [Basic Programming]()
+* [Scala collections]() 
+* [Lazy loading]()
+* [Tuples]()
+* [Function passing function]()
+* [Annonymous function]()
+* [Curried function]()
+* [Partial function]()
+* [Scala class]()
+* [Scala object]()
+* [Scala companions]()
+* [Companions]()
+* [Scala map-reduce APIs]()
+* [I/O operations]
