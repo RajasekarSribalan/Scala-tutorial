@@ -14,10 +14,10 @@
 
 ## Contents
 
-[Basic Programming]()
-[Scala collections]()
-[Lazy loading]()
-[Tuples]()
+ [Basic Programming]()
+ [Scala collections]() 
+ [Lazy loading]()
+ [Tuples]()
 [Function passing function]()
 [Annonymous function]()
 [Curried function]()
